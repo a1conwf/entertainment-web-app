@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+	/* Colors */
+	--color-white: #fff;
+	--color-red: #fc4747;
+	--color-dark-blue: #10141e;
+	--color-greyish-blue: #5a698f;
+	--color-semi-dark-blue: #161d2f;
+
+	/* Font */
+	--font-outfit: "Outfit", sans-serif;
+}
+
+@layer base {
+	body {
+		@apply bg-dark-blue text-white font-outfit font-light text-base;
+	}
+
+	h3,
+	h4 {
+		@apply font-medium;
+	}
+
+	h1,
+	h2 {
+		@apply text-[1.25rem] md:text-[2rem] tracking-[-0.5px];
+	}
+
+	h3 {
+		@apply text-base md:text-2xl;
+	}
+
+	h4 {
+		@apply text-sm md:text-lg;
+	}
+
+	button {
+		@apply cursor-pointer;
+	}
+
+	input,
+	button {
+		@apply outline-none bg-transparent;
+	}
+}
+
+@layer utilities {
+	.icon-default-blue {
+		filter: brightness(0) saturate(100%) invert(43%) sepia(12%) saturate(888%) hue-rotate(187deg)
+			brightness(92%) contrast(88%);
+	}
+
+	.icon-hover-red:hover {
+		filter: brightness(0) saturate(100%) invert(45%) sepia(94%) saturate(2870%) hue-rotate(332deg)
+			brightness(103%) contrast(98%);
+	}
+}
+
+@layer components {
+	.btn {
+		@apply bg-red text-white text-base font-light rounded-[8px] py-4 transition-all duration-200 hover:bg-white hover:text-semi-dark-blue;
+	}
+
+	.input {
+		@apply w-full caret-red placeholder:opacity-50 transition-all duration-200;
+	}
+}
