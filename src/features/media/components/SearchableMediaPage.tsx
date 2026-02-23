@@ -1,4 +1,6 @@
-import type { ReactNode } from "react";
+import { memo, useCallback } from "react";
+import type { ChangeEvent, ReactNode } from "react";
+
 import type { MediaItem } from "../types";
 
 import SearchInput from "@/components/ui/SearchInput";
@@ -22,13 +24,19 @@ const SearchableMediaPage: React.FC<SearchableMediaPageProps> = ({
 	defaultContent,
 }) => {
 	const trimmedSearchQuery = searchQuery.trim();
+	const handleSearchInputChange = useCallback(
+		(event: ChangeEvent<HTMLInputElement>) => {
+			onSearchQueryChange(event.target.value);
+		},
+		[onSearchQueryChange],
+	);
 
 	return (
 		<>
 			<SearchInput
 				placeholder={searchPlaceholder}
 				value={searchQuery}
-				onChange={(e) => onSearchQueryChange(e.target.value)}
+				onChange={handleSearchInputChange}
 			/>
 
 			{isSearchMode ? (
@@ -45,4 +53,4 @@ const SearchableMediaPage: React.FC<SearchableMediaPageProps> = ({
 	);
 };
 
-export default SearchableMediaPage;
+export default memo(SearchableMediaPage);

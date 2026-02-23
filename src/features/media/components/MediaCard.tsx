@@ -1,5 +1,6 @@
+import { memo } from "react";
 import { TrailerModal } from "@/features/media/components";
-import { useTrailerPreview, useBookmarkActions } from "@/features/media/hooks";
+import { useTrailerPreview, useBookmarkActions, useMediaCardData } from "@/features/media/hooks";
 import type { MediaItem } from "@/features/media/types";
 
 import { IMAGE_BASE_URL } from "@/services/config";
@@ -22,11 +23,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
 		item.id,
 	);
 
-	const title = item.title || item.name;
-	const releaseYear = (item.release_date || item.first_air_date)?.split("-")[0];
-	const adultRating = item.adult ? "18+" : "E";
-	const mediaType = item.media_type;
-	const mediaTypeText = mediaType === "movie" ? "Movie" : "TV Series";
+	const { title, releaseYear, adultRating, mediaType, mediaTypeText } = useMediaCardData(item);
 
 	return (
 		<article className="relative">
@@ -47,6 +44,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
 					src={`${IMAGE_BASE_URL}${item.backdrop_path}`}
 					alt={title}
 					className="w-full aspect-video object-cover rounded-lg"
+					loading="lazy"
 				/>
 				<div className="absolute inset-0 rounded-lg bg-black/50 opacity-0 transition-opacity duration-200 group-hover:opacity-100 flex items-center justify-center">
 					<button
@@ -67,11 +65,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
 				<ul className="flex items-center gap-1 [&>li]:text-[11px] [&>li]:opacity-75 [&>li+li]:before:mr-2 [&>li+li]:before:content-['•'] sm:gap-2 md:[&>li]:text-sm">
 					<li>{releaseYear}</li>
 					<li className="flex items-center gap-1">
-						{mediaType === "movie" ? (
-							<img src={movieIcon} alt="movie-icon" />
-						) : (
-							<img src={tvSeriesIcon} alt="tv-series-icon" />
-						)}
+						<img src={mediaType === "movie" ? movieIcon : tvSeriesIcon} alt={mediaTypeText} />
 						{mediaTypeText}
 					</li>
 					<li>{adultRating}</li>
@@ -84,4 +78,4 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
 	);
 };
 
-export default MediaCard;
+export default memo(MediaCard);

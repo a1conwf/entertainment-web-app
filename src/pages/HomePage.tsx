@@ -18,6 +18,23 @@ const HomePage: React.FC = () => {
 
 	const { searchQuery, setSearchQuery, isSearchMode, filteredItems } = useMediaSearch(uniqueItems);
 
+	const defaultContent = useMemo(
+		() => (
+			<>
+				<section className="mb-6 md:mb-10">
+					<h1 className="mb-4 md:mb-6">Trending</h1>
+					<MediaSlider items={trendingData} isLoading={trendingIsLoading} skeletonItems={5} />
+				</section>
+
+				<section className="mb-14">
+					<h2 className="mb-4 md:mb-6">Recommended for you</h2>
+					<MediaGrid items={recommendedData} isLoading={recommendedIsLoading} skeletonItems={20} />
+				</section>
+			</>
+		),
+		[recommendedData, recommendedIsLoading, trendingData, trendingIsLoading],
+	);
+
 	return (
 		<SearchableMediaPage
 			searchPlaceholder="Search for movies or TV series"
@@ -25,23 +42,7 @@ const HomePage: React.FC = () => {
 			onSearchQueryChange={setSearchQuery}
 			isSearchMode={isSearchMode}
 			filteredItems={filteredItems}
-			defaultContent={
-				<>
-					<section className="mb-6 md:mb-10">
-						<h1 className="mb-4 md:mb-6">Trending</h1>
-						<MediaSlider items={trendingData} isLoading={trendingIsLoading} skeletonItems={5} />
-					</section>
-
-					<section className="mb-14">
-						<h2 className="mb-4 md:mb-6">Recommended for you</h2>
-						<MediaGrid
-							items={recommendedData}
-							isLoading={recommendedIsLoading}
-							skeletonItems={20}
-						/>
-					</section>
-				</>
-			}
+			defaultContent={defaultContent}
 		/>
 	);
 };

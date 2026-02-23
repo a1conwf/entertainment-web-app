@@ -9,16 +9,13 @@ import { useBookmarksStore, useAuthStore } from "@/store";
 const getBookmarkSearchableText = (item: MediaItem) => item.title || item.name || "";
 
 const BookmarksPage: React.FC = () => {
-	const { bookmarksByUser } = useBookmarksStore();
-	const { currentUserId } = useAuthStore();
+	const bookmarksByUser = useBookmarksStore((state) => state.bookmarksByUser);
+	const currentUserId = useAuthStore((state) => state.currentUserId);
 
-	const bookmarks = useMemo(() => {
-		if (!currentUserId) {
-			return [];
-		}
-
-		return bookmarksByUser[currentUserId] ?? [];
-	}, [bookmarksByUser, currentUserId]);
+	const bookmarks = useMemo(
+		() => (currentUserId ? (bookmarksByUser[currentUserId] ?? []) : []),
+		[bookmarksByUser, currentUserId],
+	);
 
 	const bookmarkedMovies = useMemo(
 		() => bookmarks.filter((bookmark) => bookmark.media_type === "movie"),
@@ -35,6 +32,27 @@ const BookmarksPage: React.FC = () => {
 		getBookmarkSearchableText,
 	);
 
+	const defaultContent = useMemo(
+		() => (
+			<>
+				{bookmarkedMovies.length > 0 && (
+					<section className="mb-6 md:mb-10">
+						<h1 className="mb-6 xl:mb-10">Bookmarked Movies</h1>
+						<MediaGrid items={bookmarkedMovies} />
+					</section>
+				)}
+
+				{bookmarkedTVSeries.length > 0 && (
+					<section className="mb-10 xl:mb-16">
+						<h1 className="mb-6 xl:mb-10">Bookmarked TV Series</h1>
+						<MediaGrid items={bookmarkedTVSeries} />
+					</section>
+				)}
+			</>
+		),
+		[bookmarkedMovies, bookmarkedTVSeries],
+	);
+
 	return (
 		<>
 			{bookmarks.length === 0 ? (
@@ -46,23 +64,7 @@ const BookmarksPage: React.FC = () => {
 					onSearchQueryChange={setSearchQuery}
 					isSearchMode={isSearchMode}
 					filteredItems={filteredItems}
-					defaultContent={
-						<>
-							{bookmarkedMovies.length > 0 && (
-								<section className="mb-6 md:mb-10">
-									<h1 className="mb-6 xl:mb-10">Bookmarked Movies</h1>
-									<MediaGrid items={bookmarkedMovies} />
-								</section>
-							)}
-
-							{bookmarkedTVSeries.length > 0 && (
-								<section className="mb-10 xl:mb-16">
-									<h1 className="mb-6 xl:mb-10">Bookmarked TV Series</h1>
-									<MediaGrid items={bookmarkedTVSeries} />
-								</section>
-							)}
-						</>
-					}
+					defaultContent={defaultContent}
 				/>
 			)}
 		</>

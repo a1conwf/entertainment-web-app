@@ -3,7 +3,9 @@ import { useAuthStore } from "@/store";
 import { AuthModalBase } from "./index";
 
 const SignupModal: React.FC = () => {
-	const { signup, closeAuthModal, openAuthModal } = useAuthStore();
+	const signup = useAuthStore((state) => state.signup);
+	const closeAuthModal = useAuthStore((state) => state.closeAuthModal);
+	const openAuthModal = useAuthStore((state) => state.openAuthModal);
 
 	const handleSignup = async ({ email, password }: { email: string; password: string }) => {
 		await signup(email, password);

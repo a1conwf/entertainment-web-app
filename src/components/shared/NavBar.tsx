@@ -9,8 +9,11 @@ import loginIcon from "@/assets/svg/icon-login.svg";
 import logoutIcon from "@/assets/svg/icon-logout.svg";
 
 const NavBar: React.FC = () => {
-	const { currentUserId, logout, openAuthModal } = useAuthStore();
-	const isAuthenticated = Boolean(currentUserId);
+	const currentUser = useAuthStore((state) => state.user);
+	const logout = useAuthStore((state) => state.logout);
+	const openAuthModal = useAuthStore((state) => state.openAuthModal);
+
+	const isAuthenticated = Boolean(currentUser);
 
 	const handleLogout = async () => {
 		await logout();

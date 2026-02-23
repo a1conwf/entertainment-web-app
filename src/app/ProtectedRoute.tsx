@@ -9,13 +9,9 @@ type ProtectedRouteProps = {
 };
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-	const { currentUserId } = useAuthStore();
+	const currentUserId = useAuthStore((state) => state.currentUserId);
 
-	if (currentUserId) {
-		return <>{children}</>;
-	}
-
-	return <Navigate to={ROUTES.HOME} replace />;
+	return currentUserId ? <>{children}</> : <Navigate to={ROUTES.HOME} replace />;
 };
 
 export default ProtectedRoute;

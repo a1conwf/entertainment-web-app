@@ -62,18 +62,25 @@ export const fetchTrailerKey = async (
 	mediaType: MediaItem["media_type"],
 	mediaId: number,
 ): Promise<string | null> => {
-	const response = await axiosInstance.get<MediaVideosResponse>(`/${mediaType}/${mediaId}/videos`);
-	const youtubeVideos = response.data.results.filter((video) => video.site === "YouTube");
-	const officialTrailer = youtubeVideos.find(
-		(video) => video.type === "Trailer" && Boolean(video.official),
-	);
+	try {
+		const response = await axiosInstance.get<MediaVideosResponse>(
+			`/${mediaType}/${mediaId}/videos`,
+		);
 
-	if (officialTrailer?.key) return officialTrailer.key;
+		const youtubeVideos = response.data.results.filter((video) => video.site === "YouTube");
+		const officialTrailer = youtubeVideos.find(
+			(video) => video.type === "Trailer" && Boolean(video.official),
+		);
 
-	const trailer = youtubeVideos.find((video) => video.type === "Trailer");
+		if (officialTrailer?.key) return officialTrailer.key;
 
-	if (trailer?.key) return trailer.key;
+		const trailer = youtubeVideos.find((video) => video.type === "Trailer");
+		if (trailer?.key) return trailer.key;
 
-	const teaser = youtubeVideos.find((video) => video.type === "Teaser");
-	return teaser?.key ?? null;
+		const teaser = youtubeVideos.find((video) => video.type === "Teaser");
+		return teaser?.key ?? null;
+	} catch (error) {
+		console.error("Error fetching trailer key");
+		throw error;
+	}
 };

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useTVSeriesQuery } from "@/features/media/queries";
 import { useMediaSearch } from "@/features/media/hooks/useMediaSearch";
 import type { MediaItem } from "@/features/media/types";
@@ -11,6 +12,15 @@ const TVSeriesPage: React.FC = () => {
 		data,
 		getTVSeriesSearchableText,
 	);
+	const defaultContent = useMemo(
+		() => (
+			<section className="mb-14">
+				<h1 className="mb-6 xl:mb-10">TV Series</h1>
+				<MediaGrid items={data} isLoading={isLoading} skeletonItems={20} />
+			</section>
+		),
+		[data, isLoading],
+	);
 
 	return (
 		<SearchableMediaPage
@@ -19,12 +29,7 @@ const TVSeriesPage: React.FC = () => {
 			onSearchQueryChange={setSearchQuery}
 			isSearchMode={isSearchMode}
 			filteredItems={filteredItems}
-			defaultContent={
-				<section className="mb-14">
-					<h1 className="mb-6 xl:mb-10">TV Series</h1>
-					<MediaGrid items={data} isLoading={isLoading} skeletonItems={20} />
-				</section>
-			}
+			defaultContent={defaultContent}
 		/>
 	);
 };

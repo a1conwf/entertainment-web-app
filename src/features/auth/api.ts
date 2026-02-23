@@ -9,19 +9,40 @@ import {
 import { auth } from "./firebase";
 
 export const loginWithEmailPassword = async (email: string, password: string) => {
-	const credential = await signInWithEmailAndPassword(auth, email, password);
-	return credential.user;
+	try {
+		const credential = await signInWithEmailAndPassword(auth, email, password);
+		return credential.user;
+	} catch (error) {
+		console.error("Error logging in with email and password");
+		throw error;
+	}
 };
 
 export const signupWithEmailPassword = async (email: string, password: string) => {
-	const credential = await createUserWithEmailAndPassword(auth, email, password);
-	return credential.user;
+	try {
+		const credential = await createUserWithEmailAndPassword(auth, email, password);
+		return credential.user;
+	} catch (error) {
+		console.error("Error signing up with email and password");
+		throw error;
+	}
 };
 
 export const logoutUser = async () => {
-	await signOut(auth);
+	try {
+		await signOut(auth);
+	} catch (error) {
+		console.error("Error logging out");
+		throw error;
+	}
 };
 
 export const subscribeToAuthState = (callback: (user: User | null) => void): Unsubscribe => {
-	return onAuthStateChanged(auth, callback);
+	try {
+		const unsubscribe = onAuthStateChanged(auth, callback);
+		return () => unsubscribe();
+	} catch (error) {
+		console.error("Error subscribing to auth state");
+		throw error;
+	}
 };

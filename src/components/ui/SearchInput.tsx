@@ -1,3 +1,4 @@
+import { memo } from "react";
 import searchIcon from "@/assets/svg/icon-search.svg";
 
 type SearchInputProps = {
@@ -24,4 +25,4 @@ const SearchInput: React.FC<SearchInputProps> = ({ placeholder, value, onChange 
 	);
 };
 
-export default SearchInput;
+export default memo(SearchInput);

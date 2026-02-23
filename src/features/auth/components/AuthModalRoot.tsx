@@ -30,10 +30,13 @@ const AuthModalRoot: React.FC = () => {
 		<div
 			className="fixed inset-0 z-50 flex items-center justify-center bg-dark-blue/80 p-4"
 			onClick={closeAuthModal}
-			role="dialog"
-			aria-modal="true"
 		>
-			<div className="w-full max-w-100" onClick={(event) => event.stopPropagation()}>
+			<div
+				className="w-full max-w-100"
+				onClick={(event) => event.stopPropagation()}
+				role="dialog"
+				aria-modal="true"
+			>
 				{authModalMode === "login" ? <LoginModal /> : <SignupModal />}
 			</div>
 		</div>,
