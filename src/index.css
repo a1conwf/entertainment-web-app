@@ -46,36 +46,6 @@
 }
 
 @layer utilities {
-	@keyframes auth-modal-overlay-in {
-		from {
-			opacity: 0;
-		}
-
-		to {
-			opacity: 1;
-		}
-	}
-
-	@keyframes auth-modal-panel-in {
-		from {
-			opacity: 0;
-			transform: translateY(-120px) scale(0.96);
-		}
-
-		to {
-			opacity: 1;
-			transform: translateY(0) scale(1);
-		}
-	}
-
-	.auth-modal-overlay-animate {
-		animation: auth-modal-overlay-in 220ms ease-out;
-	}
-
-	.auth-modal-panel-animate {
-		animation: auth-modal-panel-in 260ms ease-out;
-	}
-
 	.icon-default-blue {
 		filter: brightness(0) saturate(100%) invert(43%) sepia(12%) saturate(888%) hue-rotate(187deg)
 			brightness(92%) contrast(88%);
@@ -95,4 +65,34 @@
 	.input {
 		@apply w-full caret-red placeholder:opacity-50 transition-all duration-200;
 	}
+}
+
+@keyframes auth-modal-overlay-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes auth-modal-panel-in {
+	from {
+		opacity: 0;
+		transform: translateY(-120px) scale(0.96);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+.auth-modal-overlay-animate {
+	animation: auth-modal-overlay-in 220ms ease-out;
+}
+
+.auth-modal-panel-animate {
+	animation: auth-modal-panel-in 260ms ease-out;
 }
