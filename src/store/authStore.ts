@@ -12,7 +12,7 @@ import {
 
 type AuthModalMode = "login" | "signup";
 
-type AuthStore = {
+interface AuthStore {
 	user: User | null;
 	isAuthReady: boolean;
 	lastUserId: string | null;
@@ -21,10 +21,10 @@ type AuthStore = {
 	initAuthListener: () => void;
 	openAuthModal: (mode: AuthModalMode) => void;
 	closeAuthModal: () => void;
-	login: (email: string, password: string) => Promise<void>;
-	signup: (email: string, password: string) => Promise<void>;
-	logout: () => Promise<void>;
-};
+	login: (email: string, password: string) => void;
+	signup: (email: string, password: string) => void;
+	logout: () => void;
+}
 
 let authUnsubscribe: (() => void) | null = null;
 const initialUser = auth.currentUser;

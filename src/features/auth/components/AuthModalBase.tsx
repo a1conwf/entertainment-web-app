@@ -2,12 +2,12 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, signupSchema } from "../schemas";
-import { getAuthErrorMessage } from "../errorMessages";
+import { loginSchema, signupSchema } from "@/features/auth/schemas";
+import { getAuthErrorMessage } from "@/features/auth/errorMessages";
 
 import AuthInput from "@/components/ui/AuthInput";
 
-type AuthFormValues = {
+export type AuthFormValues = {
 	email: string;
 	password: string;
 	repeatPassword?: string;
@@ -20,7 +20,7 @@ type AuthModalBaseProps = {
 	footerText: string;
 	footerActionText: string;
 	onFooterActionClick: () => void;
-	onSubmit: (values: AuthFormValues) => Promise<void>;
+	onSubmit: (values: AuthFormValues) => void;
 	onClose: () => void;
 };
 

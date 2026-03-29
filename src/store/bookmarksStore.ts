@@ -3,11 +3,11 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 import type { MediaItem } from "@/features/media/types";
 
-type BookmarksStore = {
+interface BookmarksStore {
 	bookmarksByUser: Record<string, MediaItem[]>;
 	addBookmark: (userId: string, bookmark: MediaItem) => void;
 	removeBookmark: (userId: string, bookmark: MediaItem) => void;
-};
+}
 
 const useBookmarksStore = create<BookmarksStore>()(
 	persist(

@@ -15,9 +15,14 @@ const NavBar: React.FC = () => {
 
 	const isAuthenticated = Boolean(currentUser);
 
-	const handleLogout = async () => {
-		await logout();
-		toast.success("Logged out successfully.");
+	const handleLogout = () => {
+		try {
+			logout();
+			toast.success("Logged out successfully.");
+		} catch (error) {
+			toast.error("Failed to log out. Please try again.");
+			console.error(error);
+		}
 	};
 
 	return (

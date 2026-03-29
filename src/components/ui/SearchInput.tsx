@@ -1,11 +1,11 @@
 import { memo } from "react";
 import searchIcon from "@/assets/svg/icon-search.svg";
 
-type SearchInputProps = {
+interface SearchInputProps {
 	placeholder: string;
 	value?: string;
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 const SearchInput: React.FC<SearchInputProps> = ({ placeholder, value, onChange }) => {
 	return (

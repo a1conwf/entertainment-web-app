@@ -1,5 +1,5 @@
 import NavBar from "@/components/shared/NavBar";
-import AuthModalRoot from "@/features/auth/components/AuthModalRoot";
+import { AuthModalRoot } from "@/features/auth/components";
 
 type MainLayoutProps = {
 	children: React.ReactNode;

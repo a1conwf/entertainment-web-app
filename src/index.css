@@ -17,14 +17,14 @@
 		@apply bg-dark-blue text-white font-outfit font-light text-base;
 	}
 
-	h3,
-	h4 {
-		@apply font-medium;
-	}
-
 	h1,
 	h2 {
 		@apply text-[1.25rem] md:text-[2rem] tracking-[-0.5px];
+	}
+
+	h3,
+	h4 {
+		@apply font-medium;
 	}
 
 	h3 {
@@ -46,6 +46,36 @@
 }
 
 @layer utilities {
+	@keyframes auth-modal-overlay-in {
+		from {
+			opacity: 0;
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes auth-modal-panel-in {
+		from {
+			opacity: 0;
+			transform: translateY(-120px) scale(0.96);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+	}
+
+	.auth-modal-overlay-animate {
+		animation: auth-modal-overlay-in 220ms ease-out;
+	}
+
+	.auth-modal-panel-animate {
+		animation: auth-modal-panel-in 260ms ease-out;
+	}
+
 	.icon-default-blue {
 		filter: brightness(0) saturate(100%) invert(43%) sepia(12%) saturate(888%) hue-rotate(187deg)
 			brightness(92%) contrast(88%);

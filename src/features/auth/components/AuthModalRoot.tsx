@@ -28,11 +28,11 @@ const AuthModalRoot: React.FC = () => {
 
 	return createPortal(
 		<div
-			className="fixed inset-0 z-50 flex items-center justify-center bg-dark-blue/80 p-4"
+			className="fixed inset-0 z-50 flex items-center justify-center bg-dark-blue/80 p-4 auth-modal-overlay-animate"
 			onClick={closeAuthModal}
 		>
 			<div
-				className="w-full max-w-100"
+				className="w-full max-w-100 auth-modal-panel-animate"
 				onClick={(event) => event.stopPropagation()}
 				role="dialog"
 				aria-modal="true"

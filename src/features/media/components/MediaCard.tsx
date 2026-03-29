@@ -1,4 +1,5 @@
 import { memo } from "react";
+
 import { TrailerModal } from "@/features/media/components";
 import { useTrailerPreview, useBookmarkActions, useMediaCardData } from "@/features/media/hooks";
 import type { MediaItem } from "@/features/media/types";

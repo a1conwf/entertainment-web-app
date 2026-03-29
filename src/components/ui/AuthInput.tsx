@@ -1,8 +1,8 @@
 import React from "react";
 
-type AuthInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+interface AuthInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	error?: string;
-};
+}
 
 const AuthInput: React.FC<AuthInputProps> = ({ error, className, ...props }) => {
 	return (
